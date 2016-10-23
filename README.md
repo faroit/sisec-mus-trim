@@ -17,7 +17,7 @@ pip install dsdtools
 python trim_estimates.py Your_Estimates_Dir/ Output_Dir/
 ```
 
-where `Your_Estimates_Dir` is the source files that includes your SISEC MUS
+where `Your_Estimates_Dir` is the source folder that includes your SISEC MUS
 results and `Output_Dir` is a directory that will be created in order to render
 the trimmed 30s previews.
 
