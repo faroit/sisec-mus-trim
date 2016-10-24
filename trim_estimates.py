@@ -4,6 +4,7 @@ import os.path as op
 import glob
 import soundfile as sf
 import csv
+import sys
 
 
 def csv_to_dict(csv_path="data/previews.csv"):
@@ -19,7 +20,9 @@ def csv_to_dict(csv_path="data/previews.csv"):
 def trim_estimates(dsd, estimates_dir, output_path):
     previews = csv_to_dict()
     for track in dsd.load_dsd_tracks():
-        print(track.id)
+        sys.stdout.write("Trim Track: %d\b" % track.id)
+        sys.stdout.write("\r")
+        sys.stdout.flush()
         track_estimate_dir = op.join(
             estimates_dir,
             track.subset,
