@@ -4,22 +4,12 @@ import os
 import os.path as op
 import glob
 import soundfile as sf
-import csv
 import sys
-
-
-def csv_to_dict(csv_path="data/previews.csv"):
-    previews = {}
-    with open(csv_path, 'r') as csvfile:
-        preview_reader = csv.reader(csvfile, delimiter=',')
-        for row in preview_reader:
-            previews[int(row[0])] = (int(row[1]), int(row[2]))
-
-    return previews
+import utils
 
 
 def trim_estimates(dsd, estimates_dirs, output_path):
-    previews = csv_to_dict()
+    previews = utils.csv_to_dict()
 
     # cut references
     # for target_name, target_track in track.targets.iteritems():
