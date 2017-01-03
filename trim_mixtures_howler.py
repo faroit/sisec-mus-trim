@@ -1,3 +1,4 @@
+from __future__ import division
 import argparse
 import dsdtools
 import os
@@ -18,17 +19,24 @@ def trim_estimates(dsd, output_path):
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
+    start_pos = 0
     for track in dsd.load_dsd_tracks():
         sys.stdout.write("Trim Target Track: %d\b" % track.id)
         sys.stdout.write("\r")
         sys.stdout.flush()
 
         start = previews[track.id][0]
-        samples.append(track.audio[start:start+44100*3, :])
+        tmp = track.audio[start:start+44100*3, :]
+        length = tmp.shape[0]
+        samples.append(tmp)
         samples_pos.append({
             'id': track.id,
-            'pos': [start, start+44100*3]
+            'pos': [
+                int(1000 * (start_pos / 44100.0)), int(1000 * ((length) / 44100.0))
+            ]
         })
+
+        start_pos += length
 
     samples = np.concatenate(samples)
     target_path = op.join(output_path, 'howler.wav')
